@@ -4,12 +4,14 @@ C project template repository by @b-tima
 
 # Get started
 
-You need to install cmocka for unit testing
+First, edit the makefile to name your binary.
+
+Then, you need to install cmocka for unit testing and valgrind for debugging
 ```
-sudo pacman -S --noconfirm cmocka
+sudo pacman -S --noconfirm cmocka valgrind
 ```
 
-Otherwise, you're good to go!
+Now you're good to go!
 
 # Acknowledgement
 
