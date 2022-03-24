@@ -97,7 +97,6 @@ help:
 # Rule for link and generate the binary file
 all: $(OBJECTS)
 	@echo -en "$(BROWN)LD $(END_COLOR)";
-	if [ ! -d "$(BINDIR)" ]; then mkdir $(BINDIR); fi
 	$(CC) -o $(BINDIR)/$(BINARY) $+ $(DEBUG) $(CFLAGS) $(LIBS)
 	@echo -en "\n--\nBinary file placed at" \
 			  "$(BROWN)$(BINDIR)/$(BINARY)$(END_COLOR)\n";
@@ -106,13 +105,11 @@ all: $(OBJECTS)
 # Rule for object binaries compilation
 $(LIBDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@echo -en "$(BROWN)CC $(END_COLOR)";
-	if [ ! -d "$(LIBDIR)" ]; then mkdir $(LIBDIR); fi
 	$(CC) -c $^ -o $@ $(DEBUG) $(CFLAGS) $(LIBS)
 
 
 # Rule for run valgrind tool
 valgrind:
-	if [ ! -d "$(LOGDIR)" ]; then mkdir $(LOGDIR); fi
 	valgrind \
 		--track-origins=yes \
 		--leak-check=full \
@@ -125,7 +122,6 @@ valgrind:
 # Compile tests and run the test binary
 tests:
 	@echo -en "$(BROWN)CC $(END_COLOR)";
-	if [ ! -d "$(BINDIR)" ]; then mkdir $(BINDIR); fi
 	$(CC) $(TESTDIR)/main.c -o $(BINDIR)/$(TEST_BINARY) $(DEBUG) $(CFLAGS) $(LIBS) $(TEST_LIBS)
 	@which ldconfig && ldconfig -C /tmp/ld.so.cache || true # caching the library linking
 	@echo -en "$(BROWN) Running tests: $(END_COLOR)";
@@ -134,4 +130,4 @@ tests:
 
 # Rule for cleaning the project
 clean:
-	@rm -rvf $(BINDIR)/ $(LIBDIR)/ $(LOGDIR)/;
+	@rm -rvf $(BINDIR)/* $(LIBDIR)/* $(LOGDIR)/*;
