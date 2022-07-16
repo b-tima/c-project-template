@@ -64,3 +64,6 @@ dkms.conf
 !/log/.gitkeep
 
 /.*
+/bin
+/log
+/obj
