@@ -24,6 +24,8 @@ OBJ_DEBUG := $(addprefix $(DBG_PATH)/, $(addsuffix .o, $(notdir $(basename $(SRC
 
 INCLUDE_DIRS := -I./inc/
 
+LDFLAGS := 
+BUILDFLAGS := -O2 -Werror
 CCFLAGS := -Wall $(INCLUDE_DIRS)
 CCOBJFLAGS := $(CCFLAGS) -c
 DBGFLAGS := -g
@@ -40,19 +42,19 @@ default: makedir all
 
 # non-phony targets
 $(TARGET): $(OBJ)
-	$(CC) $(CCFLAGS) -o $@ $(OBJ)
+	$(CC) $(CCFLAGS) $(LDFLAGS) -o $@ $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c*
-	$(CC) $(CCOBJFLAGS) -o $@ $<
+	$(CC) $(CCOBJFLAGS) $(BUILDFLAGS) -o $@ $<
 
 $(DBG_PATH)/%.o: $(SRC_PATH)/%.c*
 	$(CC) $(CCOBJFLAGS) $(DBGFLAGS) -o $@ $<
 
 $(TARGET_DEBUG): $(OBJ_DEBUG)
-	$(CC) $(CCFLAGS) $(DBGFLAGS) $(OBJ_DEBUG) -o $@
+	$(CC) $(CCFLAGS) $(DBGFLAGS) -o $@ $(OBJ_DEBUG)
 
 obj/main.o: main.c
-	$(CC) $(CCOBJFLAGS) -o $@ $<
+	$(CC) $(CCOBJFLAGS) $(BUILDFLAGS) -o $@ $<
 
 debug/main.o: main.c
 	$(CC) $(CCOBJFLAGS) $(DBGFLAGS) -o $@ $<
