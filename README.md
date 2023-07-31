@@ -4,14 +4,9 @@ C project template repository by @b-tima
 
 # Get started
 
-First, edit the makefile to name your binary.
+Edit the makefile to name your binary. Compile, and the executable will be located under the ./bin directory.
 
-Then, you need to install cmocka for unit testing and valgrind for debugging
-```
-sudo pacman -S --noconfirm cmocka valgrind
-```
-
-Now you're good to go!
+In order to run unit tests, you need ```docker``` and ```docker-compose``` installed. Run ```./run_tests.sh``` in your command line to run the unit tests.
 
 # Acknowledgement
 
